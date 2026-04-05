@@ -123,7 +123,8 @@ describe('/#/login', () => {
         }
       )
 
-      cy.task<string>('GenerateAuthenticator', 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH').then(
+      // Тот же TOTP-секрет, что в users.yml (заглушка для лабораторной сборки).
+      cy.task<string>('GenerateAuthenticator', 'TESTTOTPSECRETFORLAB').then(
         (totpToken: string) => {
           void cy.get('#totpToken').type(totpToken)
           void cy.get('#totpSubmitButton').click()

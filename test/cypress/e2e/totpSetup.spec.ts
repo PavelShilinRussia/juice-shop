@@ -1,10 +1,11 @@
 describe('/#/basket', () => {
   describe('as wurstbrot', () => {
     beforeEach(() => {
+      // totpSecret как в users.yml (TESTTOTPSECRETFORLAB), чтобы e2e совпадали с данными бэкенда.
       cy.login({
         email: 'wurstbrot',
         password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
-        totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+        totpSecret: 'TESTTOTPSECRETFORLAB'
       })
     })
 

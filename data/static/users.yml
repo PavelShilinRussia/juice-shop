@@ -148,7 +148,8 @@
   email: wurstbrot
   username: wurstbrot
   password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
-  totpSecret: IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH
+  # Секрет TOTP — явная заглушка для лабораторной: в репо не храним «боевой» секрет, тесты используют то же значение.
+  totpSecret: TESTTOTPSECRETFORLAB
   key: timo
   role: 'admin'
   securityQuestion:

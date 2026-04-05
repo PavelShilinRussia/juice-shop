@@ -45,8 +45,9 @@ ngAfterViewInit () {
   }
 
   encodeProductDescription (tableData: any[]) {
+    // Описание товара: не ручная замена угловых скобок, а штатный санитайзер Angular (корректнее для HTML и замечаний SAST).
     for (let i = 0; i < tableData.length; i++) {
-      tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+      tableData[i].description = this.sanitizer.sanitize(SecurityContext.HTML, tableData[i].description) ?? ''
     }
   }
 

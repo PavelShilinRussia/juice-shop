@@ -17,6 +17,8 @@ const API_URL = 'http://localhost:3000/api'
 
 const jsonHeader = { 'content-type': 'application/json' }
 
+// Везде ниже секрет TOTP для wurstbrot совпадает с totpSecret в data/static/users.yml (заглушка вместо реального секрета в репозитории).
+
 async function login ({ email, password, totpSecret }: { email: string, password: string, totpSecret?: string }) {
   // @ts-expect-error FIXME promise return handling broken
   const loginRes = await frisby
@@ -106,7 +108,7 @@ describe('/rest/2fa/verify', () => {
       type: 'password_valid_needs_second_factor_token'
     })
 
-    const totpToken = otplib.authenticator.generate('IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH')
+    const totpToken = otplib.authenticator.generate('TESTTOTPSECRETFORLAB')
 
     // @ts-expect-error FIXME promise return handling broken
     await frisby.post(REST_URL + '/2fa/verify', {
@@ -153,7 +155,7 @@ describe('/rest/2fa/verify', () => {
       type: 'password_valid_needs_second_factor_token'
     }, 'this_surly_isnt_the_right_key')
 
-    const totpToken = otplib.authenticator.generate('IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH')
+    const totpToken = otplib.authenticator.generate('TESTTOTPSECRETFORLAB')
 
     // @ts-expect-error FIXME promise return handling broken
     await frisby.post(REST_URL + '/2fa/verify', {
@@ -172,7 +174,7 @@ describe('/rest/2fa/status', () => {
     const { token } = await login({
       email: `wurstbrot@${config.get<string>('application.domain')}`,
       password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
-      totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+      totpSecret: 'TESTTOTPSECRETFORLAB'
     })
 
     // @ts-expect-error FIXME promise return handling broken
@@ -367,7 +369,7 @@ describe('/rest/2fa/setup', () => {
   it('POST should fail if the account has already set up 2fa', async () => {
     const email = `wurstbrot@${config.get<string>('application.domain')}`
     const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
-    const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+    const totpSecret = 'TESTTOTPSECRETFORLAB'
 
     const { token } = await login({ email, password, totpSecret })
 
